@@ -1,5 +1,11 @@
-from data.data_handler import staff, devices, borrow_records
 from staff import add_staff
+from utils import save_to_json
+
+#empty list
+staff = save_to_json("data/staff.json")
+devices = save_to_json("data/devices.json")
+borrow_records = save_to_json("data/borrow_records.json")
+
 def menu():
     print("\n1. Add Staff")
     print("2. Add Device")

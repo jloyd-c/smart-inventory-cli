@@ -1,4 +1,3 @@
-import json
 from datetime import datetime
 
 def create_staff(id, name, department, status="active"):
