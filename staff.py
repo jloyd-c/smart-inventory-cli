@@ -1,4 +1,6 @@
 import uuid
+from data.data_handler import create_staff
+from utils import save_to_json
 
 #normalizing string
 def normalize(text):
@@ -15,13 +17,7 @@ def staff_duplicate_validators(staff, name, department):
     return False
 
 #add staff
-def add_staff(staff, name, department, status):
-
-    if int(status) == 1:
-        status = "ACTIVE"
-    elif int(status) == 2:
-        status = "INACTIVE"
-
+def add_staff(staff, name, department):
     #validation for name
     if not name or not name.strip():
         print("Please enter your name!")
@@ -31,11 +27,6 @@ def add_staff(staff, name, department, status):
     if not department or not department.strip():
         print("Please enter your department!")
         return
-
-    #validation for status
-    if not status or not status.strip():
-        print("Please enter number!")
-        return
     
     if staff_duplicate_validators(staff, name.strip(), department.strip()):
         print("Staff already exists!")
@@ -44,10 +35,6 @@ def add_staff(staff, name, department, status):
     #using uuid for auti id generate with huge amount of number
     user_id = uuid.uuid4()
 
-    staff.append({
-        #used .int attribute / property 
-        "id": user_id.int,
-        "name": normalize(name),
-        "department": normalize(department),
-        "status": status
-    })
+    save_staff = create_staff(user_id.int, name, department)
+    staff.append(save_staff)
+    save_to_json("data/staff.json", staff)

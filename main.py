@@ -1,5 +1,12 @@
-from data.data_handler import staff, devices, borrow_records
 from staff import add_staff
+from devices import add_devices
+from utils import load_form_json, save_to_json
+
+#empty list
+staff = load_form_json("data/staff.json")
+devices = load_form_json("data/devices.json")
+borrow_records = load_form_json("data/borrow_records.json")
+
 def menu():
     print("\n1. Add Staff")
     print("2. Add Device")
@@ -26,12 +33,20 @@ while True:
         if department.strip().lower() == "exit":
             continue
 
-        print("Enter 1 if ACTIVE, 2 if INACTIVE")
-        status = input("Enter Number: ")
-        if status.strip().lower() == "exit":
+        add_staff(staff, name, department)
+    
+    elif user_input == 2:
+        print("\nif you want to exit enter \"exit\".")
+        device_name = input("Enter Device Name: ")
+        if device_name.strip().lower() == "exit":
             continue
 
+        device_model = input("Enter Device Model: ")
+        if device_model.strip().lower() == "exit":
+            continue
+        
+        add_devices(devices, device_name, device_model)
 
-        add_staff(staff, name, department, status)
-    elif user_input == 2:
-        print(staff)
+
+    elif user_input == 3:
+        print(devices, staff)
